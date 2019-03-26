@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 For yaset installation, please follow the [installation instructions](https://jtourille.github.io/yaset/).
 
-# Usage
+# Quickstart
 
 Please clone the repository and go inside.
 
@@ -30,23 +30,19 @@ The end-to-end use of MSETagger includes 3 main steps:
 
 For that, we need 4 data files:
 
-* The raw train corpus file in txt or conll format (in case on conll format, all the fields except word will be ignored)
-* The annotated train corpus in file conll format
-* The annotated dev corpus in file conll format
-* The annotated test corpus file in conll format
+* The raw train corpus file, as a preprocessed tokenised text
+* The annotated train corpus in [conllu](https://universaldependencies.org/format.html) format (it is ok if not all the columns have significant values: only the word and the tag columns will be used (the 1st and the 4th columne respectively, starting from 0, see our toy example))
+* The annotated dev corpus in conllu format
+* The test corpus in conllu format (not need to be annotated, it can have "-" in the tag column)
 
 The results will be stored in a working directory which you choose.
 
-You can put this files (or the link to) in a working directory with default names train.raw.txt, train.conll, dev.conll, test.conll. In this case for running the default configuration, just do 
+You need to put this files (or the link to) in a working directory with default names train.raw.txt, train.conll, dev.conll, test.conll. Now, for running the default configuration, just do 
 ```bash
 python main.py --mode iterative_train_and_test --work_dir working/directory
 ```
 replacing working/directory by the directory you chosed.
 
-You can also put your data to another location, in this case you need to precise in with corresponding command line arguments:
-```bash
-python main.py --mode iterative_train_and_test --work_dir the/directory/where/to/write/results --raw_data path/to/raw/train/data --train_data path/to/annotated/train/data --dev_data path/to/annotated/dev/data --gold_data path/to/annotated/test/data 
-```
-The output will be placed to the working directory with the name test.conllu. The working directory will also contain the embeddings and the tagger model produced at each iteration. These are placed in a _iterative_train_workspace subdirectory.
+The tagged output will be placed to the working directory with the name test.conllu. The working directory will also contain the embeddings and the tagger model produced at each iteration. These are placed in a _iterative_train_workspace subdirectory.
 
 
