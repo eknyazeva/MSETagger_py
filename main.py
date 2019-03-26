@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     if args.mode.startswith("iterative_train"):
 
-        raw_data_conllu_file = working_dir + "/train.raw.conllu" if not args.raw_data else args.raw_data
+        raw_data_conllu_file = working_dir + "/train.raw.txt" if not args.raw_data else args.raw_data
         train_data_file = working_dir + "/train.conllu" if not args.train_data else args.train_data
         dev_data_file = working_dir + "/dev.conllu" if not args.dev_data else args.dev_data
         test_data_file = working_dir + "/gold.conllu" if not args.gold_data else args.gold_data
