@@ -153,8 +153,8 @@ if __name__ == "__main__":
     root_logger.setLevel(logging.INFO)
     # handler = logging.FileHandler(log_dir + '/log.txt', 'w', 'utf-8')
     formatter = logging.Formatter('%(message)s')
-    handler.setFormatter(formatter)
-    root_logger.addHandler(handler)
+    # handler.setFormatter(formatter)
+    # root_logger.addHandler(handler)
 
     root_logger.info("Training dataset: {}".format(options.dataset))
     root_logger.info("Output vocabulary: {}".format(options.vocab))
