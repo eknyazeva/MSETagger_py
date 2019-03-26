@@ -66,9 +66,9 @@ if __name__ == "__main__": # for corpus_file in glob.glob(dataDir): # todo: opti
         allSamples = [encoder.contexts_builder(s,nb_negs) for s in corpus]
         print("shuffling samples", flush=True)
         np.random.shuffle(allSamples)
-        for d,l in allSamples[:3]:
-            print(encoder.decodeContextsList(d,l))
-            print("\n")
+        # for d,l in allSamples[:3]:
+        #     print(encoder.decodeContextsList(d,l))
+        #     print("\n")
         print("creating batchs")
         data_size = 0
         for data, labels in generate_batch(16, allSamples): # 512 ?
@@ -77,9 +77,9 @@ if __name__ == "__main__": # for corpus_file in glob.glob(dataDir): # todo: opti
             # print(len(y))
             data_size += len(y)
             batchs.append((x, y))
-        print(data_size)
-        print(x)
-        print(y)
+        # print(data_size)
+        # print(x)
+        # print(y)
         for dim_embeddings in [int(x) for x in dim_list]:
             
             # inputs
