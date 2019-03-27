@@ -18,7 +18,8 @@ if __name__ == "__main__":
     parser.add_argument('--tagger_output', default="test.tagged.conllu")
     parser.add_argument('--use_mimick', default='True')
     parser.add_argument('--iter_number', default=1)
-    parser.add_argument('--temp_files_dir', default=None)
+    parser.add_argument('--models_dir', default=None)
+    parser.add_argument('--keep_models', default='True')
     parser.add_argument('--emb_dim', default=50)
     parser.add_argument('--emb_min_occ_num', default=1)
     parser.add_argument('--yaset_patience', default=100)
@@ -27,8 +28,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     working_dir = args.work_dir
-    if args.temp_files_dir:
-        work_space = '/' + args.temp_files_dir + '/' 
+    if args.models_dir:
+        work_space = '/' + args.models_dir + '/' 
     else:
         # we use date and time to avoid an accidental replacement of important files
         work_space = "/workspace-" + datetime.now().strftime("%y-%m-%d-%H-%M-%S") + '/'
@@ -115,6 +116,9 @@ if __name__ == "__main__":
         output_file = yaset.apply_model(test_data_yaset_file, model_path)
         AnnotatedCorpora(output_file).write_conllu(working_dir + args.tagger_output)
 
-    subprocess.call(["rm", train_data_yaset_file, dev_data_yaset_file, test_data_yaset_file, raw_data_yaset_file])
-    subprocess.call(["rm", raw_data_txt_file])
-    subprocess.call(["rm", raw_data_conllu_file])
+    if args.keep_models == 'False':
+        subprocess.call(["rm", "-r", working_dir + work_space])
+    else:
+        subprocess.call(["rm", train_data_yaset_file, dev_data_yaset_file, test_data_yaset_file, raw_data_yaset_file])
+        subprocess.call(["rm", raw_data_txt_file])
+        subprocess.call(["rm", raw_data_conllu_file])
