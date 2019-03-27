@@ -17,6 +17,12 @@ pip install -r requirements.txt
 ```
 
 For yaset installation, please follow the [installation instructions](https://jtourille.github.io/yaset/).
+In case of problem, do
+```bash
+git clone https://github.com/eknyazeva/yaset.git
+cd yaset
+pip install .
+```
 
 # Quickstart
 
