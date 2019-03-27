@@ -7,11 +7,10 @@ class Yaset:
     def __init__(self, working_dir, iterative=False):
 
         self.working_dir = working_dir + "/"
-        # subprocess.call(["mkdir", self.working_dir])
         self.iterative = iterative
         self.n_iter = 0
 
-    def train_model(self, embeddings_file, train_file, dev_file):
+    def train_model(self, embeddings_file, train_file, dev_file, yaset_patience='100'):
 
         if self.iterative:
             self.n_iter += 1
@@ -20,12 +19,13 @@ class Yaset:
         else:
             self.working_dir_iter = self.working_dir
         
-        config_file = self.create_config(embeddings_file, train_file, dev_file)
+        config_file = self.create_config(embeddings_file, train_file, dev_file, yaset_patience)
 
         subprocess.call(["yaset", \
                          "LEARN", \
                          "--config", config_file])
         
+        subprocess.call(["rm", config_file])
         working_dir_content = subprocess.check_output(["ls", self.working_dir_iter]).decode("utf-8")
         model_path = working_dir_content.strip().split('\n')[-1]
         
@@ -59,7 +59,7 @@ class Yaset:
         return self.working_dir_iter + "train.raw.retagged.conll"
 
 
-    def create_config(self, embeddings_file, train_file, dev_file):
+    def create_config(self, embeddings_file, train_file, dev_file, yaset_patience):
 
        config_txt = " = ".join("\n".join(\
                     "[general] \
@@ -85,8 +85,8 @@ class Yaset:
                     working_dir = {3} \
                     [training] \
                     model_type = bilstm-char-crf \
-                    max_iterations = 200 \
-                    patience = 75 \
+                    max_iterations = 500 \
+                    patience = {4} \
                     store_matrices_on_gpu = true \
                     bucket_use = false \
                     dev_metric = accuracy \
@@ -110,7 +110,8 @@ class Yaset:
                     use_char_embeddings = true \
                     char_hidden_layer_size = 15 \
                     char_embedding_size = 15 \
-                    ".format(embeddings_file, train_file, dev_file, self.working_dir_iter).split()).split("\n=\n"))
+                    ".format(embeddings_file, train_file, dev_file, \
+                             self.working_dir_iter, yaset_patience).split()).split("\n=\n"))
 
        config_file = self.working_dir_iter + "config.ini"
        f = open(config_file, 'wt')

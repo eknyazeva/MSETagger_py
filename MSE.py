@@ -38,7 +38,7 @@ class MSE:
 
         return full_vocab_file
 
-    def learn_embeddings(self, raw_data_conll_file, morpho_file, noccmin=2, ndim=50, use_mimick=False, vocab_file=None):
+    def learn_embeddings(self, raw_data_conll_file, morpho_file, noccmin=1, ndim=50, use_mimick=False, vocab_file=None):
 
         if use_mimick and not vocab_file:
             print("need vocab file")
