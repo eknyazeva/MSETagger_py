@@ -28,6 +28,16 @@ pip install .
 
 Please clone the repository and go inside its directory.
 
+# Toy example
+
+You can execute
+```bash
+python main.py --mode iterative_train_and_test --work_dir toy-example --yaset_patience 3
+```
+to try MSETagger on a small amount of data in order to check if all requirements are satisfied.
+
+# End-to-end MSETagger
+
 End-to-end use of MSETagger includes 3 main steps:
 
 * train morphosyntactic embeddings
@@ -41,14 +51,31 @@ For that, we need 4 data files:
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format (no need for it to be annotated, it can have a "-" in the tag column)
 
-Results will be stored in a working directory which you choose.
-
-You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conll, dev.conll, test.conll. Now, in order to run default end-to-end configuration, just do 
+You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conllu, dev.conllu, test.conllu. Now, in order to run default end-to-end configuration, just do 
 ```bash
 python main.py --mode iterative_train_and_test --work_dir path/to/the/working/directory
 ```
 replacing path/to/the/working/directory properly.
 
-Tagged output will be placed in the working directory with the name test-tagged.conllu. The working directory will also contain the embeddings and the tagger model produced at each iteration. These are placed in an _iterative_train_workspace subdirectory.
+Tagged output will be placed in the working directory with the name test-tagged.conllu. The working directory will also contain the embeddings and the tagger model produced at each iteration. These are placed in a models subdirectory if your working directory. You can change the name if this directory with --models_dir parameter. You can also choose not to keep all these model files by passing --keep_models False.
 
+# Training with prepared embeddings
 
+You can you MSETagger with embeddings issu from another system, such as [Fasttext](https://fasttext.cc). In this case, the MSETagger will
+
+* train Bi-LSTM tagger using the provided embeddings
+* apply trained tagger to test data
+
+As embeddings will not be trained, you don't need any raw data, but you need an embeddings file instead. So, the required data are
+* An embeddings file
+* An annotated train corpus in conllu format
+* An annotated dev corpus in conllu format
+* A test corpus in conllu format
+
+You need to put these files (or links to them) in a working directory with default names embeddings.vec, train.conllu, dev.conllu, test.conllu. Now, in order to run training with provided embeddings, do
+```bash
+python main.py --mode train_and_test_with_embeddings --work_dir path/to/the/working/directory
+```
+replacing path/to/the/working/directory properly.
+
+Tagged output will be placed in the working directory with the name test-tagged.conllu.
