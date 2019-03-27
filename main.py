@@ -2,7 +2,7 @@ import sys
 from codecs import open
 import subprocess
 import argparse
-import datetime
+from datetime import datetime
 
 from Corpora import RawCorpora, AnnotatedCorpora
 from Morfessor import Morfessor
@@ -27,7 +27,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     working_dir = args.work_dir
-    work_space = '/' + args.temp_files_dir + '/' if args.temp_files_dir else "/workspace/"
+    if args.temp_files_dir:
+        work_space = '/' + args.temp_files_dir + '/' 
+    else:
+        # we use date and time to avoid an accidental replacement of important files
+        work_space = "/workspace-" + datetime.now().strftime("%y-%m-%d-%H-%M-%S") + '/'
+
     subprocess.call(["mkdir", working_dir + work_space])
 
     raw_data_file = working_dir + "/train.raw.txt"
@@ -77,10 +82,12 @@ if __name__ == "__main__":
                                                 raw_data_conllu_file], \
                                                train_vocab_file)
 
+        retagged_raw_conllu_file = raw_data_conllu_file
+
         for i in range(1, int(args.iter_number) + 1):
 
             if args.use_mimick == 'True':
-                embeddings_file = mse.learn_embeddings(raw_data_conllu_file, \
+                embeddings_file = mse.learn_embeddings(retagged_raw_conllu_file, \
                                                        morpho_file, \
                                                        noccmin=int(args.emb_min_occ_num), \
                                                        ndim=int(args.emb_dim), \
@@ -101,7 +108,6 @@ if __name__ == "__main__":
             
             retagged_raw_conllu_file = working_dir + work_space + "/iter" + str(i) + "/train.raw.retagged.conllu"
             AnnotatedCorpora(retagged_raw).write_conllu(retagged_raw_conllu_file)
-            raw_data_conllu_file = retagged_raw_conllu_file
 
             output_file = yaset.apply_model(test_data_yaset_file, model_path)            
             AnnotatedCorpora(output_file).write_conllu(working_dir + work_space + '/iter' + str(i) + '/' + args.tagger_output)
