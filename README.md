@@ -77,3 +77,8 @@ python main.py --mode train_and_test_with_embeddings --work_dir path/to/the/work
 replacing path/to/the/working/directory properly. You can also give a special name to your experience with the parameter --models_dir.
 
 Tagged output will be placed in the working directory with the name test-tagged.conllu.
+
+This is an exemple of using the provided embeddings on toy data:
+```bash
+python main.py --mode train_and_test_with_embeddings --work_dir toy-example --embeddings embeddings_example.vec --yaset_patience 3 --models_dir exp_with_provided_embeddings
+```

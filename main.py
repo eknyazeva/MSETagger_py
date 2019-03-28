@@ -59,7 +59,7 @@ if __name__ == "__main__":
     if args.mode == "train_and_test_with_embeddings":
         
         assert args.embeddings, "You need to specify the embeddings file to use this mode"
-        embeddings_file = working_dir + args.embeddings
+        embeddings_file = working_dir + '/' + args.embeddings
 
         yaset = Yaset(working_dir + work_space)
         model_path = yaset.train_model(embeddings_file, train_data_yaset_file, dev_data_yaset_file, \
