@@ -1,7 +1,5 @@
-Python re-implementation of the system described in [this paper](https://hal.archives-ouvertes.fr/LIMSI/hal-01793092v1) and implemented in [this repository](https://github.com/a-tsioh/MSETagger).
-
 # MSETagger
-POS tagging for low-resource languages, using specialized MorphoSyntactic Embeddings.
+POS tagging for low-resource languages, using specialised MorphoSyntactic Embeddings.
 
 # Dependencies
 
@@ -9,7 +7,7 @@ The tagger is built on top of [yaset](https://github.com/jtourille/yaset) for th
 
 # Requirements
 
-You need a python3 environnement (you will probably want to create a separated virtual environnement).
+You need a python3 environnement (you will probably want to create a dedicated virtual environnement).
 
 All the modules needed except yaset can be installed by executing
 ```bash
@@ -32,15 +30,15 @@ You can execute
 ```bash
 python main.py --mode iterative_train_and_test --work_dir toy-example --yaset_patience 3
 ```
-to try MSETagger on a small amount of data in order to check if all requirements are satisfied. Note: in this example, the yaset_patience parameter is equals to 3 to go faster. For real data, this parameter shall not be so small, such values as 75 or 100 are typical (for more details about differemnt parameters see the Options section... which is not written yet). 
+to try MSETagger on a small amount of data in order to check if all requirements are satisfied. Note: in this example, the yaset_patience parameter is equals to 3 to go faster. For real data, this parameter shall not be so small, values such as 75 or 100 are more typical (for more details about the different parameters see the Options section... which is not yet written).
 
 # End-to-end MSETagger
 
 End-to-end use of MSETagger includes 3 main steps:
 
-* train morphosyntactic embeddings
-* train Bi-LSTM tagger using the previous embeddings
-* apply trained tagger to test data
+* Train morphosyntactic embeddings
+* Train Bi-LSTM tagger using the previous embeddings
+* Apply trained tagger to test data
 
 For that, we need 4 data files:
 
@@ -49,7 +47,7 @@ For that, we need 4 data files:
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format (no need for it to be annotated, it can have a "-" in the tag column)
 
-You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conllu, dev.conllu, gold.conllu. Now, in order to run default end-to-end configuration, just do 
+You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conllu, dev.conllu, gold.conllu. Now, in order to run default end-to-end configuration, just do
 ```bash
 python main.py --mode iterative_train_and_test --work_dir path/to/the/working/directory
 ```
@@ -59,10 +57,10 @@ Tagged output will be placed in the working directory with the name test-tagged.
 
 # Training with prepared embeddings
 
-You can you MSETagger with embeddings issu from another system, such as [Fasttext](https://fasttext.cc). In this case, the MSETagger will
+You can use MSETagger with embeddings from another system, such as [Fasttext](https://fasttext.cc). In this case, the MSETagger will
 
-* train Bi-LSTM tagger using the provided embeddings
-* apply trained tagger to test data
+* Train a Bi-LSTM tagger using the provided embeddings
+* Apply trained tagger to test data
 
 As embeddings will not be trained, you don't need any raw data, but you need an embeddings file instead. So, the required data are
 * An embeddings file in [Word2Vec](https://github.com/dav/word2vec) text format (The first line contains the number of words then a space then the dimentionality of embedding vectors. The other lines contain the word followed by it's representation, all fileds are separated by spaces.)
