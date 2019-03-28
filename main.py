@@ -66,7 +66,7 @@ if __name__ == "__main__":
                                        yaset_patience=args.yaset_patience)
         output_file = yaset.apply_model(test_data_yaset_file, model_path)
 
-        AnnotatedCorpora(output_file).write_conllu(working_dir + '/' + args.tagger_output)
+        AnnotatedCorpora(output_file).write_conllu(working_dir + work_space + '/' + args.tagger_output)
 
     if args.mode == "iterative_train_and_test":
 
