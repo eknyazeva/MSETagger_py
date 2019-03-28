@@ -67,7 +67,7 @@ You can you MSETagger with embeddings issu from another system, such as [Fasttex
 * apply trained tagger to test data
 
 As embeddings will not be trained, you don't need any raw data, but you need an embeddings file instead. So, the required data are
-* An embeddings file
+* An embeddings file in [Word2Vec](https://github.com/dav/word2vec) text format (The first line contains the number of words then a space then the dimentionality of vectors. The other lines contains the words followed by their representation, all fileds are separated by spaces.)
 * An annotated train corpus in conllu format
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format
