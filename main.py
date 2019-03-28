@@ -114,7 +114,7 @@ if __name__ == "__main__":
             AnnotatedCorpora(output_file).write_conllu(working_dir + work_space + '/iter' + str(i) + '/' + args.tagger_output)
 
         output_file = yaset.apply_model(test_data_yaset_file, model_path)
-        AnnotatedCorpora(output_file).write_conllu(working_dir + args.tagger_output)
+        AnnotatedCorpora(output_file).write_conllu(working_dir + '/' + args.tagger_output)
 
     if args.keep_models == 'False':
         subprocess.call(["rm", "-r", working_dir + work_space])
