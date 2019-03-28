@@ -49,7 +49,7 @@ For that, we need 4 data files:
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format (no need for it to be annotated, it can have a "-" in the tag column)
 
-You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conllu, dev.conllu, test.conllu. Now, in order to run default end-to-end configuration, just do 
+You need to put these files (or links to them) in a working directory with default names train.raw.txt, train.conllu, dev.conllu, gold.conllu. Now, in order to run default end-to-end configuration, just do 
 ```bash
 python main.py --mode iterative_train_and_test --work_dir path/to/the/working/directory
 ```
@@ -70,7 +70,7 @@ As embeddings will not be trained, you don't need any raw data, but you need an 
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format
 
-You need to put the data files (or links to them) in a working directory with default names train.conllu, dev.conllu, test.conllu. The embeddings file must also be put in a working directory, with an arbitrary name which will be given as a parameter during execution (for the case you have several embeddings to try on this data). Now, in order to run training with provided embeddings, do
+You need to put the data files (or links to them) in a working directory with default names train.conllu, dev.conllu, gold.conllu. The embeddings file must also be put in a working directory, with an arbitrary name which will be given as a parameter during execution (for the case you have several embeddings to try on this data). Now, in order to run training with provided embeddings, do
 ```bash
 python main.py --mode train_and_test_with_embeddings --work_dir path/to/the/working/directory --embeddings the/name/of/the/embedding/file
 ```
