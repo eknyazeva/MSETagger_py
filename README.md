@@ -24,17 +24,15 @@ cd yaset
 pip install .
 ```
 
-# Quickstart
+# Toy example
 
 Please clone the repository and go inside its directory.
-
-# Toy example
 
 You can execute
 ```bash
 python main.py --mode iterative_train_and_test --work_dir toy-example --yaset_patience 3
 ```
-to try MSETagger on a small amount of data in order to check if all requirements are satisfied.
+to try MSETagger on a small amount of data in order to check if all requirements are satisfied. Note: in this example, the yaset_patience parameter is equals to 3 to go faster. For real data, this parameter shall not be so small, such values as 75 or 100 are typical (for more details about differemnt parameters see the Options section... which is not written yet). 
 
 # End-to-end MSETagger
 
@@ -67,15 +65,15 @@ You can you MSETagger with embeddings issu from another system, such as [Fasttex
 * apply trained tagger to test data
 
 As embeddings will not be trained, you don't need any raw data, but you need an embeddings file instead. So, the required data are
-* An embeddings file in [Word2Vec](https://github.com/dav/word2vec) text format (The first line contains the number of words then a space then the dimentionality of vectors. The other lines contains the words followed by their representation, all fileds are separated by spaces.)
+* An embeddings file in [Word2Vec](https://github.com/dav/word2vec) text format (The first line contains the number of words then a space then the dimentionality of embedding vectors. The other lines contain the word followed by it's representation, all fileds are separated by spaces.)
 * An annotated train corpus in conllu format
 * An annotated dev corpus in conllu format
 * A test corpus in conllu format
 
-You need to put these files (or links to them) in a working directory with default names embeddings.vec, train.conllu, dev.conllu, test.conllu. Now, in order to run training with provided embeddings, do
+You need to put the data files (or links to them) in a working directory with default names train.conllu, dev.conllu, test.conllu. The embeddings file must also be put in a working directory, with an arbitrary name which will be given as a parameter during execution (for the case you have several embeddings to try on this data). Now, in order to run training with provided embeddings, do
 ```bash
-python main.py --mode train_and_test_with_embeddings --work_dir path/to/the/working/directory
+python main.py --mode train_and_test_with_embeddings --work_dir path/to/the/working/directory --embeddings the/name/of/the/embedding/file
 ```
-replacing path/to/the/working/directory properly.
+replacing path/to/the/working/directory properly. You can also give a special name to your experience with the parameter --models_dir.
 
 Tagged output will be placed in the working directory with the name test-tagged.conllu.
