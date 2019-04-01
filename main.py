@@ -36,15 +36,9 @@ if __name__ == "__main__":
 
     subprocess.call(["mkdir", working_dir + work_space])
 
-    raw_data_file = working_dir + "/train.raw.txt"
     train_data_file = working_dir + "/train.conllu"
     dev_data_file = working_dir + "/dev.conllu"
     test_data_file = working_dir + "/gold.conllu"
-
-    raw_data_txt_file = working_dir + work_space + "/train.raw.txt"
-    AnnotatedCorpora(raw_data_file).write_raw(raw_data_txt_file)
-    raw_data_conllu_file = working_dir + work_space + "/train.raw.conllu"
-    AnnotatedCorpora(raw_data_file).write_conllu(raw_data_conllu_file)
 
     # yaset needs a particular conll-type format
     train_data_yaset_file = working_dir + work_space + "/train.conll"
@@ -53,8 +47,6 @@ if __name__ == "__main__":
     AnnotatedCorpora(dev_data_file).write_yaset_format(dev_data_yaset_file)        
     test_data_yaset_file = working_dir + work_space + "/gold.conll"
     AnnotatedCorpora(test_data_file).write_yaset_format(test_data_yaset_file)
-    raw_data_yaset_file = working_dir + work_space + "/train.raw.conll"
-    AnnotatedCorpora(raw_data_file).write_yaset_format(raw_data_yaset_file)
   
     if args.mode == "train_and_test_with_embeddings":
         
@@ -69,6 +61,14 @@ if __name__ == "__main__":
         AnnotatedCorpora(output_file).write_conllu(working_dir + work_space + '/' + args.tagger_output)
 
     if args.mode == "iterative_train_and_test":
+
+        raw_data_file = working_dir + "/train.raw.txt"
+        raw_data_txt_file = working_dir + work_space + "/train.raw.txt"
+        AnnotatedCorpora(raw_data_file).write_raw(raw_data_txt_file)
+        raw_data_conllu_file = working_dir + work_space + "/train.raw.conllu"
+        AnnotatedCorpora(raw_data_file).write_conllu(raw_data_conllu_file)
+        raw_data_yaset_file = working_dir + work_space + "/train.raw.conll"
+        AnnotatedCorpora(raw_data_file).write_yaset_format(raw_data_yaset_file)
 
         morfessor = Morfessor(working_dir + work_space)
         mse = MSE(working_dir + work_space, iterative=True)
