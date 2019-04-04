@@ -1,3 +1,5 @@
+Python re-implementation of the system described in [this paper](https://hal.archives-ouvertes.fr/LIMSI/hal-01793092v1) and implemented in [this repository](https://github.com/a-tsioh/MSETagger).
+
 # MSETagger
 POS tagging for low-resource languages, using specialised MorphoSyntactic Embeddings.
 
